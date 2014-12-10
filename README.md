@@ -29,6 +29,16 @@ A short tutorial, on a very complicated and versatile tool.
 
 ### Basic Usage
 
+To use the `netcat` command all you have to do is type `nc IPADDRESS PORT` at a terminal, where IPADDRESS is the IP you want to connect to, and PORT is the port number you
+want to connect to. For most of this tutorial, we will connect to our own computers. The IP address of our own computer is `127.0.0.1` or more simply `localhost`. The port
+can be anything in the range provided earlier (32760 - 61000). Some common ports are are 22 for file transfers (SSH), 80 for internet browsers (HTTP), 443 for secure internet
+browsing (HTTP over SSL), and a fun one is 3724 for Xbox Live.
+
+If you type `nc localhost 32981` you probably will not see anything in the output. This is because `netcat` is going to that port, checking if anything is there, and
+returning. It will output what is on that port on the standard output. However, if you type `nc -l localhost 32981` it will appear as though your terminal has frozen. Let it 
+go! It is fine. What you told `netcat` to do is to go to port 32981 and wait there until someone or somthing gives it some data. As soon as it recieves the data, `netcat`
+will close. Now we can start looking at some optional features of `netcat` as well as some examples to illustrate them.
+
 ### Flags
 
 As with any Linux program, `netcat` comes with many optional features you can use. Here, I will go over the flags you will need to know in the following examples. However,
