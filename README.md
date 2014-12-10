@@ -22,14 +22,14 @@ A short tutorial, on a very complicated and versatile tool.
  opens up a terminal-link prompt for the user to use. `netcat` does not, so you can automate tasks and make your life easier by using I/O redirection as well as piping
  with `netcat`.
 
- `netcat` and `telnet` both rely on the usage on computer networking ports. These are not physical ports on the compter (like USB or ethernet, etc), but they are virtual
+ `netcat` and `telnet` both rely on the usage of computer networking ports. These are not physical ports on the compter (like USB or ethernet), but they are virtual
  ports. Ports in computer networking allow programs on the computer to share
  information with each other, or with someone else over the internet. Think of it like a bucket with two people on each side. One person puts something in the bucket, and
  the other person takes the thing out. These explanations are vastly oversimplified, but they will do for our purposes. However, if you are interested in ports and their
  role in the internet, you should look at these articles on [TCP](http://en.wikipedia.org/wiki/Transmission_Control_Protocol) and 
  [IP](http://en.wikipedia.org/wiki/Internet_Protocol). Another important note is port assignment. Many ports
- are registered for specific programs, so we should not use them for our tests. Luckily, most Linux kernels allow the ports in the range 32768 to 61000 to be used for a wide 
- variety of things.
+ are registered for specific programs, so we should not use them for our tests. Luckily most Linux kernels allow the ports in the range 32768 to 61000 to be used for a wide 
+ variety of things, and are not bound to one program or process.
 
 ### Basic Usage
 
@@ -42,7 +42,7 @@ If you type `nc localhost 32981` you probably will not see anything in the outpu
 returning. It will output what is on that port on the standard output. However, if you type `nc -l localhost 32981` it will appear as though your terminal has frozen. Let it 
 go! It is fine. What you told `netcat` to do is to go to port 32981 and wait there until someone or somthing gives it some data. `-l` tells `netcat` to listen to a port, rather than try to connect to it. You cannot use this with the -p option. As soon as it recieves the data, `netcat`
 will close. Now we can start looking at some optional features of `netcat` as well as some examples to illustrate them. When using the `-l` option, `netcat` will default
-to my default interfaces as shown by the `ifconfig` command.
+to your default interfaces as shown by the `ifconfig` command.
 
 ### Example Uses
 
@@ -178,7 +178,7 @@ The key is that your computer does not make the web request directly. It request
 output. This is an incredibly basic proxy, but of course with some work and added code, you can build your very own proxy server, and now you have the knowledge to do so.
 
 The same thing can be done, but instead of websites, with ports. If your company or school blocks a port for outgoing requests, then you can forward requests to that pipe to
-go through a different pipe. For example, port 80 is blocked. No matter! simple use:
+go through a different pipe. For example, port 80 is blocked. No matter! simply use:
 ```
 nc -l 80 | nc localhost 32981
 ```
@@ -201,5 +201,5 @@ Here is a link dump if you are interested in learning more about `netcat` or som
 * [telnet](http://linux.die.net/man/1/telnet)
 * [ncat](http://nmap.org/ncat/)
 * [Metasploit Project](http://en.wikipedia.org/wiki/Metasploit_Project)
-* [Wireshark[(http://en.wikipedia.org/wiki/Wireshark)
+* [Wireshark](http://en.wikipedia.org/wiki/Wireshark)
 * [Wiki for Packet Analyzers](http://en.wikipedia.org/wiki/Packet_analyzer)
