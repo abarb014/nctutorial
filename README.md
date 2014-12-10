@@ -26,6 +26,10 @@ A short tutorial, on a very complicated and versatile tool.
 As with any Linux program, `netcat` comes with many optional features you can use. Here, I will go over the flags you will need to know in the following examples. However,
  if you are feeling anxious to start, feel free to jump ahead to an example, and reference this part of the tutorial like a cookbook!
 
+| Flag | Description |
+|:---:|:---:|
+| -l | Tells `netcat` to listen to a port, rather than try to connect to it. |
+
 ### Basic Uses
 
 #### Chat System
