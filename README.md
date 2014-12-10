@@ -37,7 +37,8 @@ browsing (HTTP over SSL), and a fun one is 3724 for Xbox Live.
 If you type `nc localhost 32981` you probably will not see anything in the output. This is because `netcat` is going to that port, checking if anything is there, and
 returning. It will output what is on that port on the standard output. However, if you type `nc -l localhost 32981` it will appear as though your terminal has frozen. Let it 
 go! It is fine. What you told `netcat` to do is to go to port 32981 and wait there until someone or somthing gives it some data. As soon as it recieves the data, `netcat`
-will close. Now we can start looking at some optional features of `netcat` as well as some examples to illustrate them.
+will close. Now we can start looking at some optional features of `netcat` as well as some examples to illustrate them. As a small side note, if you use `-l` with `netcat`
+and you do not specify an IP address, it will default to localhost.
 
 ### Flags
 
@@ -142,5 +143,41 @@ websites, but as for this tutorial, we will be good little hackers.
 Another important fact to note is you can specify a range of ports to check rather than just one!
 
 #### Proxying and Port Forwarding
+
+I was tempted to name this section Port Redirection, because this is not port forwarding like one would do on a router. Your internet router has one IP address that the
+world can use to talk to it. It assigns local IP addresses (like the one we found earlier) to the devices on your network, and it routes the internet traffic to whatever 
+device is requesting it, or being requested. Regular port forwarding means redirecting the requested port to a machine on the local network.
+
+The type of port forwarding I am going to talk about it simply redirecting ports on your own computer, and possibly other computers on your local network, if you so feel the
+need. In this example, we will redirect requests from a port on our computer to a website.
+
+This is done with the following command:
+```
+nc -l 32981 | nc www.amazon.com 80
+```
+What we are doing is making a `netcat` server on port 32981. Requests to that port will be piped (or forwarded) to the amazon.com webserver on port 80. Now if we go to a
+web browser and type `localhost:32981` in the address bar, nothing will happen! Why? Well, the first call to `netcat` makes the server, and the second one redirects the 
+request, but we are not doing anything with the repy from amazon! It comes back to our browser to do what it pleases. We can fix this with a two way pipe, or "named pipe".
+
+This time, do this:
+```
+mkfifo pipe
+nc -l 32981 < pipe | nc www.amazon.com 80 > pipe
+```
+This time if you refresh the browser, we get output! Woo! This is because we redirect standard input to come from the pipe, which at first has nothing, and we redirect the
+output from amazon to the pipe. We can read and write from this pipe, so not only do we get output from the browser, but we can send more input to get new webpages. Using
+this technique along with some crafty BASH scripting skills, you can make a small, very insecure webserver.
+
+This idea of sending web requests to one server, and having it make the request for you is called proxying. Say your favorite website was blocked at work, and you knew this
+trick. With some port forwarding on your router, you could run this command using your favorite website (probably not amazon) and get access to it. The key is that your
+computer does not make the web request directly. It requests that another server make the request, and in the end you get the same output. This is an incredibly basic
+proxy, but of course with some work and added code, you can build your very own proxy server, and now you have the knowledge to do so.
+
+The same thing can be don but instead of websites, with ports. If your company or school blocks a port for outgoing requests, then you can forward requests to that pipe to
+go through a different pipe. For example, port 80 is blocked. No matter! simple use:
+```
+nc -l 80 | nc localhost 32981
+```
+Now any requests made to port 80 will be forwarded to port 32981. Yay for you!
 
 ### Scripts
