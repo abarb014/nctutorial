@@ -28,7 +28,10 @@ As with any Linux program, `netcat` comes with many optional features you can us
 
 | Flag | Description |
 |:---:|:---:|
-| -l | Tells `netcat` to listen to a port, rather than try to connect to it. |
+| -l | Tells `netcat` to listen to a port, rather than try to connect to it. You cannot use this with the -p option. |
+| -k | Forces `netcat` to stay open. This MUST be used with the -l option. |
+| -z | Makes `netcat` scan for listeners. This cannot be used with the -l option. |
+| -v | Gives `netcat` verbose (lots of big words) output. |
 
 ### Basic Uses
 
@@ -76,6 +79,45 @@ and waits until he sees someone else. Now the other window or computer will run 
 nc localhost 32981 > file # Where localhost can be the local IP address of the listener, if you are using two computers.
 ```
 With this command, you connect to port 32981 on the listener computer, and you redirect what you find there into a file. A man shows up, takes what is in the bucket, and both
-men leave. This command will close netcat on the listener because we did not specify to keep the connection open. This is a simple, but powerful example; you now know
+men leave. This command will close `netcat` on the listener because we did not specify to keep the connection open. This is a simple, but powerful example; you now know
 that you can "load up" the server, and that you can redirect the output to files. Of course if we did not redirect the output, the contents of the file would have been
 printed to standard output instead.
+
+### Port Scanning
+
+Say you want to host your own website with your favorite web server. While you are getting everything set up, you run into an error! For some reason, your server cannot
+start on port 80, the HTTP port. Instead of panicking or calling the cops, you probably should check to see if the port is in use by something else first.
+
+Start by running this on a terminal:
+```
+nc -z localhost 80
+```
+This command checks to see if anything is listening on port 80, however the output can get a little tricky. First of all, the command will not print anything if there is
+nothing listening on the port. This might confuse new users. If something IS listening, then you will get a message like the folowing:
+```
+Connection to localhost port 32981 [tcp/*] succeeded!
+```
+
+You can also use the -v flag to get better output. But you would know that if you read the flag section, right?
+
+Port scanning also works on domain names! Here is an example:
+```
+abarb014@nctutorial$ nc -z -v -w 1 google.com 80
+found 0 associations
+found 1 connections:
+     1: flags=82<CONNECTED,PREFERRED>
+        outif en1
+        src MY.IP.CENSORED port 52345
+        dst 74.125.196.113 port 80
+        rank info not available
+        TCP aux info available
+
+Connection to google.com port 80 [tcp/http] succeeded!
+abarb014@nctutorial$ 
+```
+Notice here that I used two more flags. Their explanation will be in the flag section. From the output, you can see the source IP and port, as well as the destination IP and
+port. I covered my IP and port for some security, but notice at the bottom it said the connection to google was a success! Yay! This is not as useful as checking your own
+ports, but you might be able to check for some open ports on the computers that serve a website you do not particularly like. You can find out more about that on some shadier
+websites, but as for this tutorial, we will be good little hackers.
+
+Another important fact to note is you can specify a range of ports to check rather than just one!
