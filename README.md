@@ -14,7 +14,6 @@ A short tutorial, on a very complicated and versatile tool.
   - [File Transfer](#file-transfer)
   - [Port Scanning](#port-scanning)
   - [Proxying and Port Forwarding](#proxying-and-port-forwarding)
-* [Scripts](#scripts)
 
 ### Background
 
@@ -32,7 +31,7 @@ A short tutorial, on a very complicated and versatile tool.
 ### Basic Usage
 
 To use the `netcat` command all you have to do is type `nc IPADDRESS PORT` at a terminal, where IPADDRESS is the IP you want to connect to, and PORT is the port number you
-want to connect to. For most of this tutorial, we will connect to our own computers. The IP address of our own computer is `127.0.0.1` or more simply `localhost`. The port
+want to connect to. For most of this tutorial, we will connect to our own computers. The IP address of our own computer is `127.0.0.1`, or more simply `localhost`. The port
 can be anything in the range provided earlier (32760 - 61000). Some common ports are are 22 for file transfers (SSH), 80 for internet browsers (HTTP), 443 for secure internet
 browsing (HTTP over SSL), and a fun one is 3724 for Xbox Live.
 
@@ -50,10 +49,10 @@ As with any Linux program, `netcat` comes with many optional features you can us
 | Flag | Description |
 |:---:|:---:|
 | -l | Tells `netcat` to listen to a port, rather than try to connect to it. You cannot use this with the -p option. |
-| -k | Forces `netcat` to stay open. This MUST be used with the -l option. |
+| -k | Forces `netcat` to stay open. This needs to be used with the -l option if you decide to use it. |
 | -z | Makes `netcat` scan for listeners. This cannot be used with the -l option. You must specify a port, or range of ports to scan. |
 | -v | Gives `netcat` verbose (lots of big words) output. |
-| -w | Specifies a timeout for `netcat`, but it has no purpose with the -l option. It must be immediately followed by a wait time in seconds. |
+| -w | Specifies a timeout for `netcat`, and it has no purpose with the -l option. It must be immediately followed by a wait time in seconds. |
 
 ### Example Uses
 
@@ -86,7 +85,7 @@ This is a VERY simple system, where you can talk to another terminal session ope
  ```
  nc LISTENERS-LOCAL-IP 32981
  ```
- And voila! You have a super dangerous to use, but still cool chat system. 
+ And voila! You have a super dangerous to use, but still cool chat system. The only thing to remember is that the computers must be on the same network for this to work.
 
 #### File Transfer
 
@@ -100,8 +99,8 @@ and waits until he sees someone else. Now the other window or computer will run 
 ```
 nc localhost 32981 > file # Where localhost can be the local IP address of the listener, if you are using two computers.
 ```
-With this command, you connect to port 32981 on the listener computer, and you redirect what you find there into a file. A man shows up, takes what is in the bucket, and both
-men leave. This command will close `netcat` on the listener because we did not specify to keep the connection open. This is a simple, but powerful example; you now know
+With this command, you connect to port 32981 on the server computer, and you redirect what you find there into a file. A man shows up, takes what is in the bucket, and both
+men leave. This command will close `netcat` on the server because we did not specify to keep the connection open (-k). This is a simple, but powerful example; you now know
 that you can "load up" the server, and that you can redirect the output to files. Of course if we did not redirect the output, the contents of the file would have been
 printed to standard output instead.
 
@@ -120,7 +119,8 @@ nothing listening on the port. This might confuse new users. If something IS lis
 Connection to localhost port 32981 [tcp/*] succeeded!
 ```
 
-You can also use the -v flag to get better output. But you would know that if you read the flag section, right?
+You can also use the -v flag to get better output. But you would know that if you read the flag section, right? So if nothing is listening on port 80, you can run your
+web server. But if you get output, that means something is running on that port, and you should close it before trying to make a web server.
 
 Port scanning also works on domain names! Here is an example:
 ```
@@ -150,7 +150,7 @@ I was tempted to name this section Port Redirection, because this is not port fo
 world can use to talk to it. It assigns local IP addresses (like the one we found earlier) to the devices on your network, and it routes the internet traffic to whatever 
 device is requesting it, or being requested. Regular port forwarding means redirecting the requested port to a machine on the local network.
 
-The type of port forwarding I am going to talk about it simply redirecting ports on your own computer, and possibly other computers on your local network, if you so feel the
+The type of port forwarding I am going to talk about it simply redirecting ports on your own computer, and possibly other computers on your local network if you so feel the
 need. In this example, we will redirect requests from a port on our computer to a website.
 
 This is done with the following command:
@@ -159,7 +159,7 @@ nc -l 32981 | nc www.amazon.com 80
 ```
 What we are doing is making a `netcat` server on port 32981. Requests to that port will be piped (or forwarded) to the amazon.com webserver on port 80. Now if we go to a
 web browser and type `localhost:32981` in the address bar, nothing will happen! Why? Well, the first call to `netcat` makes the server, and the second one redirects the 
-request, but we are not doing anything with the repy from amazon! It comes back to our browser to do what it pleases. We can fix this with a two way pipe, or "named pipe".
+request, but we are not doing anything with the repy from amazon! We can fix this with a two way pipe, or "named pipe".
 
 This time, do this:
 ```
@@ -171,15 +171,13 @@ output from amazon to the pipe. We can read and write from this pipe, so not onl
 this technique along with some crafty BASH scripting skills, you can make a small, very insecure webserver.
 
 This idea of sending web requests to one server, and having it make the request for you is called proxying. Say your favorite website was blocked at work, and you knew this
-trick. With some port forwarding on your router, you could run this command using your favorite website (probably not amazon) and get access to it. The key is that your
-computer does not make the web request directly. It requests that another server make the request, and in the end you get the same output. This is an incredibly basic
-proxy, but of course with some work and added code, you can build your very own proxy server, and now you have the knowledge to do so.
+trick. With some port forwarding on your router you could run this command using your favorite website (probably not amazon) on your home computer, and get access to it 
+from work or school. The key is that your computer does not make the web request directly. It requests that another server make the request, and in the end you get the same 
+output. This is an incredibly basic proxy, but of course with some work and added code, you can build your very own proxy server, and now you have the knowledge to do so.
 
-The same thing can be don but instead of websites, with ports. If your company or school blocks a port for outgoing requests, then you can forward requests to that pipe to
+The same thing can be done, but instead of websites, with ports. If your company or school blocks a port for outgoing requests, then you can forward requests to that pipe to
 go through a different pipe. For example, port 80 is blocked. No matter! simple use:
 ```
 nc -l 80 | nc localhost 32981
 ```
 Now any requests made to port 80 will be forwarded to port 32981. Yay for you!
-
-### Scripts
