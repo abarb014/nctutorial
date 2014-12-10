@@ -4,7 +4,7 @@ A short tutorial, on a very complicated and versatile tool.
 
 ## Table of Contents
 
-* Background
+* [Background](#Background)
 * Basic Usage
 * Flags
 * Example Uses
