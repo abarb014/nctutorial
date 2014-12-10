@@ -1,6 +1,8 @@
 # netcat
 
-A short tutorial, on a very complicated and versatile tool. [Main Project Page](https://github.com/abarb014/nctutorial)
+[Main Project Page](https://github.com/abarb014/nctutorial)
+
+A short tutorial, on a very complicated and versatile tool.
 
 ## Table of Contents
 
@@ -16,16 +18,16 @@ A short tutorial, on a very complicated and versatile tool. [Main Project Page](
 
 ### Background
 
-`netcat` is a service used to read a write from network connections, so it can be used for good, or it can be used for evil.`netcat` has been described as a "hacker" tool, 
+`netcat` is a service used to read and write from network connections, so it can be used for good, or it can be used for evil.`netcat` has been described as a "hacker" tool, 
  as well as a "swiss army knife". `netcat` can be explained by using another similar command called `telnet`. `telnet` does a lot of the same things as `netcat`, but it
- opens up a terminal-link prompt for the user to use. `netcat` does not, so you can automate tasks and make your life easier by using i/o redirection as well as piping
+ opens up a terminal-link prompt for the user to use. `netcat` does not, so you can automate tasks and make your life easier by using I/O redirection as well as piping
  with `netcat`.
 
  `netcat` and `telnet` both utilize an important part of the computer, and it is called a port. Ports in computer networking allow programs on the computer to share
  information with each other, or with someone else over the internet. Think of it like a bucket with two people on each side. One person puts something in the bucket, and
- the other person take the thing out. These explanations are vastly oversimplified, but they will do for our purposes. Another important note is port assignment. Many ports
- are registered for specific programs, so we should not use them for our tests. Luckily, most Linux kernels allow the ports in the range 32768 to 61000 for a wide variety of
- things.
+ the other person takes the thing out. These explanations are vastly oversimplified, but they will do for our purposes. Another important note is port assignment. Many ports
+ are registered for specific programs, so we should not use them for our tests. Luckily, most Linux kernels allow the ports in the range 32768 to 61000 to be used for a wide 
+ variety of things.
 
 ### Basic Usage
 
