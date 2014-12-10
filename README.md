@@ -62,3 +62,20 @@ This is a VERY simple system, where you can talk to another terminal session ope
  nc LISTENERS-LOCAL-IP 32981
  ```
  And voila! You have a super dangerous to use, but still cool chat system. 
+
+### File Transfer
+
+This is another simple system that will show you how to transfer files with `netcat` as well as show you a little of piping with `netcat`. You will need two windows or two
+computers like before. On one terminal, enter this:
+```
+cat file | nc -l 32981
+```
+Essentially, this tells `netcat` to listen on a given port and hold a file. Going back to the bucket analogy, one man takes a package with him and tosses it in the bucket
+and waits until he sees someone else. Now the other window or computer will run this:
+```
+nc localhost 32981 > file # Where localhost can be the local IP address of the listener, if you are using two computers.
+```
+With this command, you connect to port 32981 on the listener computer, and you redirect what you find there into a file. A man shows up, takes what is in the bucket, and both
+men leave. This command will close netcat on the listener because we did not specify to keep the connection open. This is a simple, but powerful example; you now know
+that you can "load up" the server, and that you can redirect the output to files. Of course if we did not redirect the output, the contents of the file would have been
+printed to standard output instead.
