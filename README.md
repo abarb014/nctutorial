@@ -47,5 +47,14 @@ This is a VERY simple system, where you can talk to another terminal session ope
  ```
  nc localhost 32981
  ```
- This window is now connected to the port, and you are free to transfer text between the two windows. You have a simple chat system! Yay!
 
+ This window is now connected to the port, and you are free to transfer text between the two windows. You have a simple chat system! Yay! If you want to end the system, go
+ ahead and just type CTRL-D on any window. This is cool and all, but why not try it with different computers? This requires one more step. You need to [find](http://lifehacker.com/5833108/how-to-find-your-local-and-external-ip-address) the local IP of the listening computer. Once you have it, go ahead and do the following commands.
+ ```
+ nc -l 32981 # This should be on the same computer as the two window experiment
+ ```
+
+ ```
+ nc LISTENERS-LOCAL-IP 32981
+ ```
+ And voila! You have a super dangerous to use, but still cool chat system. 
