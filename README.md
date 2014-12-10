@@ -5,8 +5,9 @@ A short tutorial, on a very complicated and versatile tool.
 ## Table of Contents
 
 * Background
-* Capture the flag!
-* Basic Uses
+* Basic Usage
+* Flags
+* Example Uses
   - Chat System
   - File Transfer
   - Port Scanning
@@ -26,7 +27,9 @@ A short tutorial, on a very complicated and versatile tool.
  are registered for specific programs, so we should not use them for our tests. Luckily, most Linux kernels allow the ports in the range 32768 to 61000 for a wide variety of
  things.
 
-### Capture the flag!
+### Basic Usage
+
+### Flags
 
 As with any Linux program, `netcat` comes with many optional features you can use. Here, I will go over the flags you will need to know in the following examples. However,
  if you are feeling anxious to start, feel free to jump ahead to an example, and reference this part of the tutorial like a cookbook!
@@ -39,7 +42,7 @@ As with any Linux program, `netcat` comes with many optional features you can us
 | -v | Gives `netcat` verbose (lots of big words) output. |
 | -w | Specifies a timeout for `netcat`, but it has no purpose with the -l option. It must be immediately followed by a wait time in seconds. |
 
-### Basic Uses
+### Example Uses
 
 #### Chat System
 
