@@ -4,15 +4,15 @@ A short tutorial, on a very complicated and versatile tool.
 
 ## Table of Contents
 
-* [Background](#Background)
-* Basic Usage
-* Flags
-* Example Uses
-  - Chat System
-  - File Transfer
-  - Port Scanning
-  - Proxying and Port Forwarding
-* Scripts
+* [Background](#background)
+* [Basic Usage](#basic-usage)
+* [Flags](#flags)
+* [Example Uses](#example-uses)
+  - [Chat System](#chat-system)
+  - [File Transfer](#file-transfer)
+  - [Port Scanning](#port-scanning)
+  - [Proxying and Port Forwarding](#proxying-and-port-forwarding)
+* [Scripts](#scripts)
 
 ### Background
 
