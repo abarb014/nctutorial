@@ -4,9 +4,14 @@ A short tutorial, on a very complicated and versatile tool.
 
 ## Table of Contents
 
-1. Background
-2. Capture the flag!
-3. Basic Uses
+* Background
+* Capture the flag!
+* Basic Uses
+  - Chat System
+  - File Transfer
+  - Port Scanning
+  - Proxying and Port Forwarding
+* Scripts
 
 ### Background
 
@@ -30,8 +35,9 @@ As with any Linux program, `netcat` comes with many optional features you can us
 |:---:|:---:|
 | -l | Tells `netcat` to listen to a port, rather than try to connect to it. You cannot use this with the -p option. |
 | -k | Forces `netcat` to stay open. This MUST be used with the -l option. |
-| -z | Makes `netcat` scan for listeners. This cannot be used with the -l option. |
+| -z | Makes `netcat` scan for listeners. This cannot be used with the -l option. You must specify a port, or range of ports to scan. |
 | -v | Gives `netcat` verbose (lots of big words) output. |
+| -w | Specifies a timeout for `netcat`, but it has no purpose with the -l option. It must be immediately followed by a wait time in seconds. |
 
 ### Basic Uses
 
@@ -66,7 +72,7 @@ This is a VERY simple system, where you can talk to another terminal session ope
  ```
  And voila! You have a super dangerous to use, but still cool chat system. 
 
-### File Transfer
+#### File Transfer
 
 This is another simple system that will show you how to transfer files with `netcat` as well as show you a little of piping with `netcat`. You will need two windows or two
 computers like before. On one terminal, enter this:
@@ -83,7 +89,7 @@ men leave. This command will close `netcat` on the listener because we did not s
 that you can "load up" the server, and that you can redirect the output to files. Of course if we did not redirect the output, the contents of the file would have been
 printed to standard output instead.
 
-### Port Scanning
+#### Port Scanning
 
 Say you want to host your own website with your favorite web server. While you are getting everything set up, you run into an error! For some reason, your server cannot
 start on port 80, the HTTP port. Instead of panicking or calling the cops, you probably should check to see if the port is in use by something else first.
@@ -121,3 +127,7 @@ ports, but you might be able to check for some open ports on the computers that 
 websites, but as for this tutorial, we will be good little hackers.
 
 Another important fact to note is you can specify a range of ports to check rather than just one!
+
+#### Proxying and Port Forwarding
+
+### Scripts
